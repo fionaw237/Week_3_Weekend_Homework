@@ -1,4 +1,5 @@
 require_relative("../db/sql_runner")
+require_relative("customer")
 
 class Ticket
 
@@ -9,6 +10,7 @@ class Ticket
     @id = options['id'].to_i() if options['id']
     @customer_id = options['customer_id']
     @film_id = options['film_id']
+    #charge_customer()
   end
 
   def self.delete_all()
@@ -36,5 +38,22 @@ class Ticket
     values = [@id]
     SqlRunner.run(sql, values)
   end
+
+  # def charge_customer()
+  #   sql = "SELECT * FROM customers WHERE id = $1"
+  #   values = [@customer_id]
+  #   customer = SqlRunner.run(sql, values).first()
+  #
+  #   sql = "SELECT * FROM films WHERE id = $1"
+  #   values = [@film_id]
+  #   film = SqlRunner.run(sql, values).first()
+  #
+  #   new_funds = customer['funds'].to_i() - film['price'].to_i()
+  #
+  #   sql =  "UPDATE customers SET (name, funds) = ($1, $2)
+  #          WHERE id = $3"
+  #   values = [customer['name'], new_funds, @customer_id]
+  #   SqlRunner.run(sql, values)
+  # end
 
 end

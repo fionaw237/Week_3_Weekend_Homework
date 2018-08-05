@@ -51,6 +51,16 @@ class Customer
     values = [@id]
     tickets = SqlRunner.run(sql, values)
     return tickets.map {|ticket| Ticket.new(ticket)}
+    #return tickets.count() #if we just want to check no. of tickets?
+  end
+
+  def buy_ticket()
+    sql = "SELECT price FROM films
+           INNER JOIN tickets ON films.id = tickets.film_id
+           WHERE tickets.customer_id = $1"
+    values = [@id]
+    price = SqlRunner.run(sql, values).first()['price'].to_i()
+    update()
   end
 
 end
