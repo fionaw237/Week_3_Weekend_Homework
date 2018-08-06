@@ -49,12 +49,18 @@ ticket1 = Ticket.new(
   }
 )
 
+ticket1.save()
+customer1.buy_ticket(film1.id)
+
 ticket2 = Ticket.new(
   {
     'customer_id' => customer2.id,
     'film_id' => film1.id
   }
 )
+
+ticket2.save()
+customer2.buy_ticket(film1.id)
 
 ticket3 = Ticket.new(
   {
@@ -63,6 +69,9 @@ ticket3 = Ticket.new(
   }
 )
 
+ticket3.save()
+customer1.buy_ticket(film2.id)
+
 # ticket4 = Ticket.new(
 #   {
 #     'customer_id' => customer2.id,
@@ -70,8 +79,8 @@ ticket3 = Ticket.new(
 #   }
 #)
 
-tickets = [ticket1, ticket2, ticket3]#, ticket4]
-tickets.each {|ticket| ticket.save()}
+
+
 
 binding.pry
 nil

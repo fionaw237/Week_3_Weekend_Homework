@@ -54,12 +54,24 @@ class Customer
     #return tickets.count() #if we just want to check no. of tickets?
   end
 
-  def buy_ticket()
+  # def buy_ticket()
+  #   sql = "SELECT price FROM films
+  #          INNER JOIN tickets ON films.id = tickets.film_id
+  #          WHERE tickets.customer_id = $1"
+  #   values = [@id]
+  #   price = SqlRunner.run(sql, values).first()['price'].to_i()
+  #   @funds -= price if @funds >= price
+  #   update()
+  # end
+
+  def buy_ticket(film_id)
     sql = "SELECT price FROM films
-           INNER JOIN tickets ON films.id = tickets.film_id
-           WHERE tickets.customer_id = $1"
-    values = [@id]
+           INNER JOIN tickets ON tickets.film_id = $1
+           WHERE tickets.customer_id = $2"
+    values = [film_id, @id]
     price = SqlRunner.run(sql, values).first()['price'].to_i()
+    p price
+    @funds -= price if @funds >= price
     update()
   end
 
